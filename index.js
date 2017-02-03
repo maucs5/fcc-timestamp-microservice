@@ -9,4 +9,4 @@ app.get('/home', (req, res) => {
     res.send('This is my home');
 })
 
-app.listen(5000);
+app.listen(process.env.PORT || 8000);
