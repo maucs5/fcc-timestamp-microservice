@@ -11,7 +11,8 @@ app.get('/:date', (req, res) => {
 	natural = d.toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'});
     } else
 	unix /= 1000;
-    res.send({unix: unix, natural: natural});
+    if (unix === null) res.send({unix: null, natural: null})
+    else res.send({unix: unix, natural: natural});
 });
 
 app.listen(process.env.PORT || 8000);
