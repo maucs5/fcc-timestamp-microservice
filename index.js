@@ -1,12 +1,17 @@
 var express = require('express');
 var app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/:date', (req, res) => {
+    var natural = req.params.date;
+    var unix = Date.parse(natural);
+    if (isNaN(unix)) {
+	// param is unix timezone
+	var d = new Date(+natural*1000);
+	unix = +natural;
+	natural = d.toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'});
+    } else
+	unix /= 1000;
+    res.send({unix: unix, natural: natural});
 });
-
-app.get('/home', (req, res) => {
-    res.send('This is my home');
-})
 
 app.listen(process.env.PORT || 8000);
