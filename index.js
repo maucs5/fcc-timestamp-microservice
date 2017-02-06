@@ -11,7 +11,7 @@ app.get('/:date', (req, res) => {
 	natural = d.toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'});
     } else
 	unix /= 1000;
-    if (unix === null) res.send({unix: null, natural: null})
+    if (isNaN(unix)) res.send({unix: null, natural: null})
     else res.send({unix: unix, natural: natural});
 });
 
